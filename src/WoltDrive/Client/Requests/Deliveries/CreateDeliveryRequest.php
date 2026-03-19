@@ -24,7 +24,7 @@ class CreateDeliveryRequest extends PostWoltDriveRequest
 
     protected function defaultBody(): array
     {
-        return $this->dto->toArray();
+        return array_filter($this->dto->toArray(), fn ($value) => $value !== null);
     }
 
     public function resolveEndpoint(): string
