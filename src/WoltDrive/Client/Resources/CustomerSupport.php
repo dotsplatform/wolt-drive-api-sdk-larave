@@ -11,18 +11,18 @@ use Dots\Data\DTO;
 
 class CustomerSupport extends DTO
 {
-    protected string $url;
+    protected ?string $url;
 
-    protected string $email;
+    protected ?string $email;
 
     protected string $phone_number;
 
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

@@ -24,7 +24,26 @@ class CreateDeliveryRequest extends PostWoltDriveRequest
 
     protected function defaultBody(): array
     {
-        return array_filter($this->dto->toArray(), fn ($value) => $value !== null);
+        return $this->filterNullValues($this->dto->toArray());
+    }
+
+    private function filterNullValues(array $data): array
+    {
+        $filtered = [];
+
+        foreach ($data as $key => $value) {
+            if ($value === null) {
+                continue;
+            }
+
+            if (is_array($value) && ! array_is_list($value)) {
+                $filtered[$key] = $this->filterNullValues($value);
+            } else {
+                $filtered[$key] = $value;
+            }
+        }
+
+        return $filtered;
     }
 
     public function resolveEndpoint(): string
